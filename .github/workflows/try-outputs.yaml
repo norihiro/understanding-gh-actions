@@ -20,7 +20,7 @@ jobs:
 
       - name: 'Print the outputs'
         run: |
-          echo 'Contents of GITHUB_OUTPUT:'
+          echo "Contents of GITHUB_OUTPUT ($GITHUB_OUTPUT):"
           cat $GITHUB_OUTPUT
           echo
           echo 'var1=${{ steps.step1.outputs.var1 }}'
