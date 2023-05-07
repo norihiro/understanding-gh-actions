@@ -30,7 +30,9 @@ jobs:
       - name: 'Make a data'
         run: |
           echo 'cache-hit=${{ steps.step-1.outputs.cache-hit }}'
-          mkdir tmp-cache
+          if [ '${{ steps.step-1.outputs.cache-hit }}' != true ]; then
+            mkdir tmp-cache
+          fi
           date -R > tmp-cache/date.txt
 
       - name: 'Save a cache'
