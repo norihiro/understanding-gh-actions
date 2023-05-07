@@ -13,9 +13,9 @@ jobs:
       - name: 'Output something'
         id: step1
         run: |
-          echo "var1=$(date +R)" >> $GITHUB_OUTPUT
+          echo "var1=$(date -R)" >> $GITHUB_OUTPUT
           sleep 2
-          echo "var2=$(date +R)" >> $GITHUB_OUTPUT
+          echo "var2=$(date -R)" >> $GITHUB_OUTPUT
           sleep 1
 
       - name: 'Print the outputs'
@@ -29,9 +29,9 @@ jobs:
       - name: 'Output again'
         id: step3
         run: |
-          echo "var1=$(date +R)" >> $GITHUB_OUTPUT
+          echo "var1=$(date -R)" >> $GITHUB_OUTPUT
           sleep 2
-          echo "var2=$(date +R)" >> $GITHUB_OUTPUT
+          echo "var2=$(date -R)" >> $GITHUB_OUTPUT
           sleep 1
 
       - name: 'Print the outputs again'
