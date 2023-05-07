@@ -11,30 +11,30 @@ jobs:
 
     steps:
       - name: 'Restore a cache'
-        id: step1
+        id: step-1
         uses: actions/cache/restore@v3
         with:
           path: tmp-cache
           key: tmp-cache
 
       - name: 'Test the cache'
-        if: ${{ steps.step1.outputs.cache-hit != true }}
+        if: ${{ steps.step-1.outputs.cache-hit != true }}
         run: |
-          echo 'cache-hit=${{ steps.step1.outputs.cache-hit }}'
+          echo 'cache-hit=${{ steps.step-1.outputs.cache-hit }}'
 
       - name: 'Test the cache'
-        if: ${{ steps.step1.outputs.cache-hit == true }}
+        if: ${{ steps.step-1.outputs.cache-hit == true }}
         run: |
-          echo 'cache-hit=${{ steps.step1.outputs.cache-hit }}'
+          echo 'cache-hit=${{ steps.step-1.outputs.cache-hit }}'
 
       - name: 'Make a data'
         run: |
-          echo 'cache-hit=${{ steps.step1.outputs.cache-hit }}'
+          echo 'cache-hit=${{ steps.step-1.outputs.cache-hit }}'
           mkdir tmp-cache
           date -R > tmp-cache/date.txt
 
       - name: 'Save a cache'
-        if: ${{ steps.step1.outputs.cache-hit != true }}
+        if: ${{ steps.step-1.outputs.cache-hit != true }}
         uses: actions/cache/save@v3
         with:
           path: tmp-cache
