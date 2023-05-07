@@ -9,39 +9,39 @@ jobs:
       run:
         shell: bash
 
-  steps:
-    - name: 'Output something'
-      id: step1
-      run: |
-        echo "var1=$(date +R)" >> $GITHUB_OUTPUT
-        sleep 2
-        echo "var2=$(date +R)" >> $GITHUB_OUTPUT
-        sleep 1
+    steps:
+      - name: 'Output something'
+        id: step1
+        run: |
+          echo "var1=$(date +R)" >> $GITHUB_OUTPUT
+          sleep 2
+          echo "var2=$(date +R)" >> $GITHUB_OUTPUT
+          sleep 1
 
-    - name: 'Print the outputs'
-      run: |
-        echo 'Contents of GITHUB_OUTPUT:'
-        cat $GITHUB_OUTPUT
-        echo
-        echo 'var1=${{ steps.step1.outputs.var1 }}'
-        echo 'var2=${{ steps.step1.outputs.var2 }}'
+      - name: 'Print the outputs'
+        run: |
+          echo 'Contents of GITHUB_OUTPUT:'
+          cat $GITHUB_OUTPUT
+          echo
+          echo 'var1=${{ steps.step1.outputs.var1 }}'
+          echo 'var2=${{ steps.step1.outputs.var2 }}'
 
-    - name: 'Output again'
-      id: step3
-      run: |
-        echo "var1=$(date +R)" >> $GITHUB_OUTPUT
-        sleep 2
-        echo "var2=$(date +R)" >> $GITHUB_OUTPUT
-        sleep 1
+      - name: 'Output again'
+        id: step3
+        run: |
+          echo "var1=$(date +R)" >> $GITHUB_OUTPUT
+          sleep 2
+          echo "var2=$(date +R)" >> $GITHUB_OUTPUT
+          sleep 1
 
-    - name: 'Print the outputs again'
-      run: |
-        echo 'Contents of GITHUB_OUTPUT:'
-        cat $GITHUB_OUTPUT
-        echo
-        echo 'step1.var1=${{ steps.step1.outputs.var1 }}'
-        echo 'step1.var2=${{ steps.step1.outputs.var2 }}'
-        echo 'step3.var1=${{ steps.step3.outputs.var1 }}'
-        echo 'step3.var2=${{ steps.step3.outputs.var2 }}'
+      - name: 'Print the outputs again'
+        run: |
+          echo 'Contents of GITHUB_OUTPUT:'
+          cat $GITHUB_OUTPUT
+          echo
+          echo 'step1.var1=${{ steps.step1.outputs.var1 }}'
+          echo 'step1.var2=${{ steps.step1.outputs.var2 }}'
+          echo 'step3.var1=${{ steps.step3.outputs.var1 }}'
+          echo 'step3.var2=${{ steps.step3.outputs.var2 }}'
 
 
