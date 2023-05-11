@@ -1,0 +1,32 @@
+name: 'Try screen capture'
+
+on: push
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v3
+
+      - name: Prepare macOS runner
+        uses: paulz/prepare-macos@v1
+
+      - name: 'Install packages'
+        run: |
+          pip3 install -U Pillow pyautogui
+
+      - name: 'Run script'
+        run: |
+          python3 screenshot.py
+
+      - name: 'Upload results'
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'macos-screenshot'
+          path: a.png
