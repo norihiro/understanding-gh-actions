@@ -9,4 +9,15 @@ jobs:
       run:
         shell: bash
     steps:
+      - name: 'Prepare'
+        run: |
+          mkdir artifact
+
       - uses: mxschmitt/action-tmate@v3
+
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          path: |
+            artifact/*
