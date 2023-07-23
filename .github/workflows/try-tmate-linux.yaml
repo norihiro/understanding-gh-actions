@@ -1,0 +1,12 @@
+name: Run tmate on Ubuntu
+on:
+  workflow_dispatch:
+
+jobs:
+  macos:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: mxschmitt/action-tmate@v3
