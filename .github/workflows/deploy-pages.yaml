@@ -1,0 +1,33 @@
+name: 'Deploy static web page'
+
+on: push
+
+jobs:
+  deploy:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{steps.deployment.outputs.page_url}}
+
+    steps:
+      - name: Create HTML files
+        shell: bash
+        run: |
+          set -e
+          mkdir build/
+          echo '<html><body>' >> build/index.html
+          date -R >> build/index.html
+          echo '</body></html>' >> build/index.html
+
+      - name: Upload static web contents
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/
+
+      - name: Deploy artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
