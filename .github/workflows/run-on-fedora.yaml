@@ -1,0 +1,26 @@
+name: 'Try Docker container'
+
+on: push
+
+jobs:
+  fedora:
+    runs-on: ubuntu-latest
+    container:
+      image: 'fedora:42'
+
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: Run something
+        run: |
+          ls -l / > output.txt
+          ls -aR >> output.txt
+          cat /etc/fedora-release >> output.txt || true
+
+      - name: 'Upload results'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'run-on-fedora'
+          path: output.txt
