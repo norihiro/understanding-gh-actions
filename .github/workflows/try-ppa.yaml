@@ -1,0 +1,49 @@
+on: push
+
+jobs:
+  linux:
+    runs-on: ubuntu-26.04
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - run: sudo add-apt-repository -y ppa:obsproject/obs-studio
+      - run: sudo add-apt-repository -y ppa:norihiro/plugins-for-obs-studio
+      - run: sudo apt update
+
+      - run: |
+          dpkg --print-architecture
+          dpkg --print-foreign-architectures
+
+      - name: Show APT architecture configuration
+        run: |
+          echo "=== APT architecture configuration ==="
+          apt-config dump | grep -iE 'Architecture|Architectures' || true
+
+          echo "=== APT configuration files ==="
+          sudo grep -RniE 'Architecture-Variants|Architectures:' \
+            /etc/apt/apt.conf.d /etc/apt/sources.list.d || true
+
+      - name: Show repository index targets
+        run: |
+          echo "=== APT index targets ==="
+          apt-get indextargets \
+            --format='$(SITE) $(ARCHITECTURE) $(IDENTIFIER)' \
+            | sort -u
+
+      - name: Check PPA package availability
+        run: |
+          echo "=== Package policy ==="
+          apt-cache policy shutdown-plugin-for-obs
+          apt-cache policy ui-ws-automation-for-obs
+
+      - name: Show PPA source configuration
+        run: |
+          echo "=== PPA source files ==="
+          for f in /etc/apt/sources.list.d/*; do
+            if grep -q 'ppa.launchpadcontent.net/norihiro/plugins-for-obs-studio' "$f"; then
+              echo "--- $f ---"
+              cat "$f"
+            fi
+          done
